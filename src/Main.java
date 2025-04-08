@@ -9,17 +9,17 @@ public class Main {
         public BigViginere()
         {
             Scanner teclado = new Scanner(System.in);
-            String llaveString; // Se crea la variable que va a guardar la llave en string que digite el humano
-            key = new int[0];  // se inicializa vacio la key , como lo pide el problema
+            String llaveString;
+            key = new int[0];
 
             System.out.println("Ingrese la llave del cifrado, ¡solo pueden ser numeros! ");
             llaveString = teclado.nextLine();
 
-            key = new int[llaveString.length()]; // se cambia el valor del arreglo key , para poder llenarlo con la llaveString
+            key = new int[llaveString.length()];
 
             for (int i = 0; i < llaveString.length(); i++)
             {
-                key[i] = Character.getNumericValue(llaveString.charAt(i));  //se descompone la llavestring en cada posicion, para añadirlo a la posicion correcta del arreglo key[]
+                key[i] = Character.getNumericValue(llaveString.charAt(i));
             }
 
             alfabeto = new char[64][64];
@@ -52,7 +52,7 @@ public class Main {
         }
         public String encrypt(String message)
         {
-            long inicio = System.currentTimeMillis(); // Inicio del temporizador (añadido)
+            long inicio = System.currentTimeMillis();
             String MensajeEncriptado = "";
             int LargoMensaje = message.length();
             int largoKey = key.length;
@@ -70,14 +70,14 @@ public class Main {
                 int columna = key[i % largoKey];
                 MensajeEncriptado += alfabeto[fila][columna];
             }
-            long fin = System.currentTimeMillis(); // Fin del temporizador (añadido)
-            System.out.println("Tiempo de cifrado: " + (fin - inicio) + " ms"); // (añadido)
+            long fin = System.currentTimeMillis();
+            System.out.println("Tiempo de cifrado: " + (fin - inicio) + " ms");
             return MensajeEncriptado;
         }
 
         public String Decrypt(String EncryptedMessage)
         {
-            long inicio = System.currentTimeMillis(); // Inicio del temporizador (añadido)
+            long inicio = System.currentTimeMillis();
             String MensajeDecriptado = "";
             int LargoMensaje = EncryptedMessage.length();
             int largoKey = key.length;
@@ -94,8 +94,8 @@ public class Main {
                 }
                 MensajeDecriptado += alfabeto[fila][0];
             }
-            long fin = System.currentTimeMillis(); // Fin del temporizador (añadido)
-            System.out.println("Tiempo de descifrado: " + (fin - inicio) + " ms"); // (añadido)
+            long fin = System.currentTimeMillis();
+            System.out.println("Tiempo de descifrado: " + (fin - inicio) + " ms");
             return MensajeDecriptado;
         }
 
@@ -104,34 +104,34 @@ public class Main {
             Scanner teclado = new Scanner(System.in);
 
             System.out.println("Ingrese el mensaje cifrado: ");
-            String mensajeCifrado = teclado.nextLine();          //Se le pide al humano que digite su mensaje que esta cifrado
+            String mensajeCifrado = teclado.nextLine();
 
-            long inicioDescifrado = System.currentTimeMillis(); // (añadido)
-            String mensajeDescifrado = Decrypt(mensajeCifrado); // Con la funcion de descifrar que hicimos arriba, podemos obtener mas rapido el mennsaje original
-            long finDescifrado = System.currentTimeMillis();   // (añadido)
-            System.out.println("Tiempo de descifrado (reEncrypt): " + (finDescifrado - inicioDescifrado) + " ms"); // (añadido)
+            long inicioDescifrado = System.currentTimeMillis();
+            String mensajeDescifrado = Decrypt(mensajeCifrado);
+            long finDescifrado = System.currentTimeMillis();
+            System.out.println("Tiempo de descifrado (reEncrypt): " + (finDescifrado - inicioDescifrado) + " ms");
 
             System.out.println("El mensaje descifrado es: " + mensajeDescifrado);
 
             System.out.println("Ingrese una nueva llave, !Solo pueden ser numeros! : ");
-            String llaveString = teclado.nextLine(); // Se le pide la nueva llave al humano
+            String llaveString = teclado.nextLine();
 
             for (int i = 0; i < llaveString.length(); i++)
             {
-                key[i] = Character.getNumericValue(llaveString.charAt(i)); // descomponemos la llave que esta en string, uno en uno, y la añadimos a nuestro arreglo
+                key[i] = Character.getNumericValue(llaveString.charAt(i));
             }
 
-            long inicioCifrado = System.currentTimeMillis(); // (añadido)
-            String NuevoMensajeCifrado = encrypt(mensajeDescifrado); // Ciframos el mensaje con la nueva llave, ocupamos la funcion que hicimos arriba de cifrar
-            long finCifrado = System.currentTimeMillis();   // (añadido)
-            System.out.println("Tiempo de cifrado (reEncrypt): " + (finCifrado - inicioCifrado) + " ms"); // (añadido)
+            long inicioCifrado = System.currentTimeMillis();
+            String NuevoMensajeCifrado = encrypt(mensajeDescifrado);
+            long finCifrado = System.currentTimeMillis();
+            System.out.println("Tiempo de cifrado (reEncrypt): " + (finCifrado - inicioCifrado) + " ms");
 
             System.out.println("El mensaje cifrado con la nueva llave es: " + NuevoMensajeCifrado);
         }
 
         public char search(int position)
         {
-            long inicio = System.currentTimeMillis(); // (añadido)
+            long inicio = System.currentTimeMillis();
             if (position > 4096)
             {
                 return 0;
@@ -143,25 +143,25 @@ public class Main {
                 {
                     if (contador == position)
                     {
-                        long fin = System.currentTimeMillis(); // (añadido)
-                        System.out.println("Tiempo de búsqueda (search): " + (fin - inicio) + " ms"); // (añadido)
+                        long fin = System.currentTimeMillis();
+                        System.out.println("Tiempo de búsqueda (search): " + (fin - inicio) + " ms");
                         return alfabeto[fila][columna];
                     }
                     contador++;
                 }
             }
-            long fin = System.currentTimeMillis(); // (añadido)
-            System.out.println("Tiempo de búsqueda (search): " + (fin - inicio) + " ms"); // (añadido)
+            long fin = System.currentTimeMillis();
+            System.out.println("Tiempo de búsqueda (search): " + (fin - inicio) + " ms");
             return 0;
         }
 
         public char optimalSearch(int position)
         {
-            long inicio = System.currentTimeMillis(); // (añadido)
+            long inicio = System.currentTimeMillis();
             int fila = position / 64;
             int columna = position % 64;
-            long fin = System.currentTimeMillis(); // (añadido)
-            System.out.println("Tiempo de búsqueda (optimalSearch): " + (fin - inicio) + " ms"); // (añadido)
+            long fin = System.currentTimeMillis();
+            System.out.println("Tiempo de búsqueda (optimalSearch): " + (fin - inicio) + " ms");
             return alfabeto[fila][columna];
         }
     }
